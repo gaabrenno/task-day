@@ -1,9 +1,21 @@
 import { CheckCheckIcon, ChevronRightIcon, Trash2Icon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import dayOffSvg from "../assets/day-off.svg";
+import { useEffect, useState } from "react";
 
 function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
     const navigate = useNavigate();
+    const [currentTime, setCurrentTime] = useState("");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            setCurrentTime(`${hh}:${mm}`);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     function onTaskPageClick(task){
         const queryParams = new URLSearchParams();
@@ -12,7 +24,14 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
         navigate(`/tasks?${queryParams.toString()}`);
     }
 
+    function isTaskActive(task) {
+        if (task.isCompleted || !task.time) return false;
+        // Compara se o horário atual é igual ou superior ao da task
+        return currentTime >= task.time;
+    }
+
     return(
+        <>
         <div>
             {tasks.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-8">
@@ -35,10 +54,10 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                         return a.time.localeCompare(b.time);
                     })
                     .map((task) => (
-                        <li key={task.id} className={`bg-zinc-800 text-zinc-100 p-3 rounded-md border-l-4 shadow-[0_0_10px_${task.isCompleted ? '#40ff0022' : '#FFD60022'}] flex justify-between items-center gap-2 ${task.isCompleted ? 'border-[#40ff00]' : 'border-[#FFD600]'}`}>
+                        <li key={task.id} className={`bg-zinc-800 text-zinc-100 p-3 rounded-md border-l-4 flex justify-between items-center gap-2 ${task.isCompleted ? 'border-[#40ff00] shadow-[0_0_10px_#40ff0022]' : 'border-[#FFD600]'}`}>
                             <button 
                                 onClick={() => onTaskClick(task)} 
-                                className={`font-bold w-full text-left text-lg drop-shadow-[0_0_6px_${task.isCompleted ? '#40ff00' : '#FFD600'}] ${task.isCompleted ? 'line-through text-[#40ff00]' : 'text-[#FFD600]'}`}>
+                                className={`font-bold w-full text-left text-lg ${task.isCompleted ? 'text-[#40ff00] line-through box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900]' : 'text-[#FFD600]'} ${task.isCompleted ? '' : 'drop-shadow-[0_0_6px_' + (isTaskActive(task) ? '#ff5900' : '#FFD600') + ']'} `}>
                                     {task.isCompleted ? (
                                         <div className="flex items-center gap-2">
                                             <CheckCheckIcon />
@@ -50,7 +69,7 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                                 </button>
                             <button 
                                 onClick={() => onTaskPageClick(task)}
-                                className="font-bold text-lg text-[#FFD600] drop-shadow-[0_0_6px_#FFD600]">
+                                className={`font-bold text-lg ${task.isCompleted ? 'text-[#40ff00] box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900]' : 'text-[#FFD600]'} ${task.isCompleted ? '' : 'drop-shadow-[0_0_6px_' + (isTaskActive(task) ? '#ff5900' : '#FFD600') + ']'} `}>
                                     <ChevronRightIcon />
                             </button>
                             <button 
@@ -62,6 +81,9 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                     ))}
             </ul>
         </div>
+        {/* Classe para box-shadow verde */}
+        <style>{`.box-shadow-green { box-shadow: 0 0 10px #40ff00, 0 0 20px #40ff00; }`}</style>
+        </>
     )
 }
 
