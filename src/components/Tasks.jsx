@@ -57,7 +57,7 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                         <li key={task.id} className={`bg-zinc-800 text-zinc-100 p-3 rounded-md border-l-4 flex justify-between items-center gap-2 ${task.isCompleted ? 'border-[#40ff00] shadow-[0_0_10px_#40ff0022]' : 'border-[#FFD600]'}`}>
                             <button 
                                 onClick={() => onTaskClick(task)} 
-                                className={`font-bold w-full text-left text-lg ${task.isCompleted ? 'text-[#40ff00] line-through box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900]' : 'text-[#FFD600]'} ${task.isCompleted ? '' : 'drop-shadow-[0_0_6px_' + (isTaskActive(task) ? '#ff5900' : '#FFD600') + ']'} `}>
+                                className={`font-bold w-full text-left text-lg ${task.isCompleted ? 'text-[#40ff00] line-through box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900] shadow-orange' : 'text-[#FFD600] shadow-yellow'} ${task.isCompleted ? '' : ''} `}>
                                     {task.isCompleted ? (
                                         <div className="flex items-center gap-2">
                                             <CheckCheckIcon />
@@ -69,7 +69,7 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                                 </button>
                             <button 
                                 onClick={() => onTaskPageClick(task)}
-                                className={`font-bold text-lg ${task.isCompleted ? 'text-[#40ff00] box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900]' : 'text-[#FFD600]'} ${task.isCompleted ? '' : 'drop-shadow-[0_0_6px_' + (isTaskActive(task) ? '#ff5900' : '#FFD600') + ']'} `}>
+                                className={`font-bold text-lg ${task.isCompleted ? 'text-[#40ff00] box-shadow-green' : isTaskActive(task) ? 'text-[#ff5900] shadow-orange' : 'text-[#FFD600] shadow-yellow'} ${task.isCompleted ? '' : ''} `}>
                                     <ChevronRightIcon />
                             </button>
                             <button 
@@ -82,7 +82,9 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
             </ul>
         </div>
         {/* Classe para box-shadow verde */}
-        <style>{`.box-shadow-green { box-shadow: 0 0 10px #40ff00, 0 0 20px #40ff00; }`}</style>
+        <style>{`.box-shadow-green { box-shadow: 0 0 10px #40ff00, 0 0 20px #40ff00; }
+.shadow-yellow { box-shadow: 0 0 6px #FFD600; }
+.shadow-orange { box-shadow: 0 0 6px #ff5900; }`}</style>
         </>
     )
 }
