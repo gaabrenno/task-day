@@ -26,7 +26,6 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
 
     function isTaskActive(task) {
         if (task.isCompleted || !task.time) return false;
-        // Compara se o horário atual é igual ou superior ao da task
         return currentTime >= task.time;
     }
 
@@ -81,10 +80,9 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}){
                     ))}
             </ul>
         </div>
-        {/* Classe para box-shadow verde */}
         <style>{`.box-shadow-green { box-shadow: 0 0 10px #40ff00, 0 0 20px #40ff00; }
-.shadow-yellow { box-shadow: 0 0 6px #FFD600; }
-.shadow-orange { box-shadow: 0 0 6px #ff5900; }`}</style>
+            .shadow-yellow { box-shadow: 0 0 6px #FFD600; }
+            .shadow-orange { box-shadow: 0 0 6px #ff5900; }`}</style>
         </>
     )
 }
