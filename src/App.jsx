@@ -12,11 +12,12 @@ function App(){
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  function onAddTaskClick(title, description){
+  function onAddTaskClick(title, description, time){
     const newTask = {
       id: uuidv4(),
       title: title,
       description: description,
+      time: time,
       isCompleted: false,
     }
     setTasks([...tasks, newTask]);
