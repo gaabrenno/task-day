@@ -65,30 +65,6 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em React para fins de est
 ### Navegação
 - Use o botão de voltar (←) na página de detalhes para retornar à lista
 
-## 📁 Estrutura do Projeto
-
-```
-task-day/
-├── public/
-│   ├── favicon.svg
-│   └── vite.svg
-├── src/
-│   ├── assets/
-│   │   ├── day-off.svg          # Ilustração para estado vazio
-│   │   └── react.svg
-│   ├── components/
-│   │   ├── FormTask.jsx         # Componente do formulário
-│   │   └── Tasks.jsx            # Componente da lista de tarefas
-│   ├── pages/
-│   │   └── TaskPages.jsx        # Página de detalhes da tarefa
-│   ├── App.css
-│   ├── App.jsx                  # Componente principal
-│   ├── index.css
-│   └── main.jsx                 # Ponto de entrada
-├── package.json
-├── vite.config.js
-└── README.md
-```
 
 ## 🎨 Design e UX
 
